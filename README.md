@@ -18,18 +18,18 @@ src/api/dependencies.py
 
 Modules internes pour la gestion des utilisateurs, des schémas de token, et la configuration.
 
-from fastapi import Depends, HTTPException, status
-from fastapi.security import OAuth2PasswordBearer (Système d'authentification avec mot de passe)
-from jose import jwt, JWTError (Système des jetons)
-from pydantic import ValidationError
-from sqlalchemy.orm import Session
+from fastapi import Depends, HTTPException, status<br>
+from fastapi.security import OAuth2PasswordBearer (Système d'authentification avec mot de passe)<br>
+from jose import jwt, JWTError (Système des jetons)<br>
+from pydantic import ValidationError<br>
+from sqlalchemy.orm import Session<br>
 
-from ..db.session import get_db
-from ..models.users import User
-from ..repositories.users import UserRepository
-from ..api.schemas.token import TokenPayload
-from ..utils.security import ALGORITHM
-from ..config import settings
+from ..db.session import get_db<br>
+from ..models.users import User<br>
+from ..repositories.users import UserRepository<br>
+from ..api.schemas.token import TokenPayload<br>
+from ..utils.security import ALGORITHM<br>
+from ..config import settings<br>
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl=f"{settings.API_V1_STR}/auth/login")
 
