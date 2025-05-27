@@ -101,12 +101,12 @@ Ce module fournit des fonctions utilitaires pour le hachage de mots de passe, le
 
 Fonctions :
 
-**create_access_token(subject, expires_delta=None) :** Génère un jeton d'accès JWT pour le sujet donné (identifiant utilisateur), avec une durée d'expiration optionnelle. Utilise la clé secrète et l'algorithme définis dans la configuration de l'application.
-**verify_password(plain_password, hashed_password) :** Vérifie un mot de passe en clair par rapport à sa version hachée en utilisant bcrypt.
+**create_access_token(subject, expires_delta=None) :** Génère un jeton d'accès JWT pour le sujet donné (identifiant utilisateur), avec une durée d'expiration optionnelle. Utilise la clé secrète et l'algorithme définis dans la configuration de l'application.<br>
+**verify_password(plain_password, hashed_password) :** Vérifie un mot de passe en clair par rapport à sa version hachée en utilisant bcrypt.<br>
 **get_password_hash(password) :** Hache un mot de passe en clair avec bcrypt.
 
 # Dépendances :
 
-**jose.jwt :** Pour l'encodage des jetons JWT.,
-**passlib.context.CryptContext :** Pour le hachage et la vérification des mots de passe.,
+**jose.jwt :** Pour l'encodage des jetons JWT.,<br>
+**passlib.context.CryptContext :** Pour le hachage et la vérification des mots de passe.,<br>
 **settings :** Configuration de l'application contenant SECRET_KEY et ACCESS_TOKEN_EXPIRE_MINUTES.
