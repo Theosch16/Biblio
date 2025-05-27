@@ -1,4 +1,4 @@
-Exercice 3 :
+# Exercice 3 :
 
 src/api/dependencies.py
 
@@ -95,16 +95,18 @@ def get_current_admin_user(
         )
     return current_user
 
-Exercice 4 : 
+# Exercice 4 :
 
 Ce module fournit des fonctions utilitaires pour le hachage de mots de passe, leur vérification et la création de jetons d'accès JWT.
 
 Fonctions :
-create_access_token(subject, expires_delta=None) : Génère un jeton d'accès JWT pour le sujet donné (identifiant utilisateur), avec une durée d'expiration optionnelle. Utilise la clé secrète et l'algorithme définis dans la configuration de l'application.,
-verify_password(plain_password, hashed_password) : Vérifie un mot de passe en clair par rapport à sa version hachée en utilisant bcrypt.,
-get_password_hash(password) : Hache un mot de passe en clair avec bcrypt.,
 
-Dépendances :
-jose.jwt : Pour l'encodage des jetons JWT.,
-passlib.context.CryptContext : Pour le hachage et la vérification des mots de passe.,
-settings : Configuration de l'application contenant SECRET_KEY et ACCESS_TOKEN_EXPIRE_MINUTES.
+**create_access_token(subject, expires_delta=None) :** Génère un jeton d'accès JWT pour le sujet donné (identifiant utilisateur), avec une durée d'expiration optionnelle. Utilise la clé secrète et l'algorithme définis dans la configuration de l'application.
+**verify_password(plain_password, hashed_password) :** Vérifie un mot de passe en clair par rapport à sa version hachée en utilisant bcrypt.
+**get_password_hash(password) :** Hache un mot de passe en clair avec bcrypt.
+
+# Dépendances :
+
+**jose.jwt :** Pour l'encodage des jetons JWT.,
+**passlib.context.CryptContext :** Pour le hachage et la vérification des mots de passe.,
+**settings :** Configuration de l'application contenant SECRET_KEY et ACCESS_TOKEN_EXPIRE_MINUTES.
