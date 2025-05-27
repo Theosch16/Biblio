@@ -37,23 +37,23 @@ Cette ligne crée une instance de `OAuth2PasswordBearer`, utilisée pour récup�
 
 - `get_current_user` : Récupère l'utilisateur courant à partir du token JWT fourni. Lève une exception si le token est invalide ou si l'utilisateur n'existe pas.
 
-def get_current_user(
-    db: Session = Depends(get_db),
-    token: str = Depends(oauth2_scheme)
-) -> User:
+def get_current_user(<br>
+    db: Session = Depends(get_db),<br>
+    token: str = Depends(oauth2_scheme)<br>
+) -> User:<br>
     """
-    Dépendance pour obtenir l'utilisateur actuel à partir du token JWT.
+    Dépendance pour obtenir l'utilisateur actuel à partir du token JWT.<br>
     """
-    try:
-        payload = jwt.decode(
-            token, settings.SECRET_KEY, algorithms=[ALGORITHM]
-        )
-        token_data = TokenPayload(**payload)
-    except (JWTError, ValidationError):
-        raise HTTPException(
-            status_code=status.HTTP_403_FORBIDDEN,
-            detail="Impossible de valider les informations d'identification",
-        )
+    try:<br>
+        payload = jwt.decode(<br>
+            token, settings.SECRET_KEY, algorithms=[ALGORITHM]<br>
+        )<br>
+        token_data = TokenPayload(**payload)<br>
+    except (JWTError, ValidationError):<br>
+        raise HTTPException(<br>
+            status_code=status.HTTP_403_FORBIDDEN,<br>
+            detail="Impossible de valider les informations d'identification",<br>
+        )<br>
 
     repository = UserRepository(User, db)
     user = repository.get(id=token_data.sub)
@@ -67,33 +67,33 @@ def get_current_user(
 
 - `get_current_active_user` : Vérifie que l'utilisateur courant est actif. Lève une exception si l'utilisateur est inactif.
 
-def get_current_active_user(
-    current_user: User = Depends(get_current_user),
-) -> User:
+def get_current_active_user(<br>
+    current_user: User = Depends(get_current_user),<br>
+) -> User:<br>
     """
-    Dépendance pour obtenir l'utilisateur actif actuel.
+    Dépendance pour obtenir l'utilisateur actif actuel.<br>
     """
-    if not current_user.is_active:
-        raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST,
-            detail="Utilisateur inactif",
-        )
-    return current_user
+    if not current_user.is_active:<br>
+        raise HTTPException(<br>
+            status_code=status.HTTP_400_BAD_REQUEST,<br>
+            detail="Utilisateur inactif",<br>
+        )<br>
+    return current_user<br>
 
 - `get_current_admin_user` : Vérifie que l'utilisateur courant possède les droits administrateur. Lève une exception si l'utilisateur n'a pas les privilèges requis.
 
-def get_current_admin_user(
-    current_user: User = Depends(get_current_active_user),
-) -> User:
+def get_current_admin_user(<br>
+    current_user: User = Depends(get_current_active_user),<br>
+) -> User:<br>
     """
-    Dépendance pour obtenir l'utilisateur administrateur actuel.
+    Dépendance pour obtenir l'utilisateur administrateur actuel.<br>
     """
-    if not current_user.is_admin:
-        raise HTTPException(
-            status_code=status.HTTP_403_FORBIDDEN,
-            detail="Privilèges insuffisants",
+    if not current_user.is_admin:<br>
+        raise HTTPException(<br>
+            status_code=status.HTTP_403_FORBIDDEN,<br>
+            detail="Privilèges insuffisants",<br>
         )
-    return current_user
+    return current_user<br>
 
 # Exercice 4 :
 
