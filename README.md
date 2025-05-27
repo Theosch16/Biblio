@@ -105,35 +105,35 @@ Fonctions :
 **verify_password(plain_password, hashed_password) :** Vérifie un mot de passe en clair par rapport à sa version hachée en utilisant bcrypt.<br>
 **get_password_hash(password) :** Hache un mot de passe en clair avec bcrypt.
 
-pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto") 
-ALGORITHM = "HS256" 
+pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto") <br>
+ALGORITHM = "HS256" <br>
 
-def create_access_token( 
-    subject: Union[str, Any], expires_delta: Optional[timedelta] = None 
-) -> str: 
+def create_access_token( <br>
+    subject: Union[str, Any], expires_delta: Optional[timedelta] = None <br>
+) -> str: <br>
     """ 
-    Crée un token JWT. 
+    Crée un token JWT. <br>
     """ 
-    if expires_delta: 
-        expire = datetime.utcnow() + expires_delta 
-    else: 
-        expire = datetime.utcnow() + timedelta( 
-            minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES
-        ) 
-    to_encode = {"exp": expire, "sub": str(subject)} 
-    encoded_jwt = jwt.encode(to_encode, settings.SECRET_KEY, algorithm=ALGORITHM) 
-    return encoded_jwt
+    if expires_delta: <br>
+        expire = datetime.utcnow() + expires_delta <br>
+    else: <br>
+        expire = datetime.utcnow() + timedelta( <br>
+            minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES<br>
+        ) <br>
+    to_encode = {"exp": expire, "sub": str(subject)} <br>
+    encoded_jwt = jwt.encode(to_encode, settings.SECRET_KEY, algorithm=ALGORITHM) <br>
+    return encoded_jwt<br>
 
-def verify_password(plain_password: str, hashed_password: str) -> bool: 
+def verify_password(plain_password: str, hashed_password: str) -> bool: <br>
     """ 
-    Vérifie si un mot de passe en clair correspond à un hash. 
+    Vérifie si un mot de passe en clair correspond à un hash. <br>
     """ 
-    return pwd_context.verify(plain_password, hashed_password) 
-def get_password_hash(password: str) -> str: 
+    return pwd_context.verify(plain_password, hashed_password) <br>
+def get_password_hash(password: str) -> str: <br>
     """ 
-    Génère un hash à partir d'un mot de passe en clair. 
+    Génère un hash à partir d'un mot de passe en clair. <br>
     """ 
-    return pwd_context.hash(password)
+    return pwd_context.hash(password)<br>
 
 # Dépendances :
 
