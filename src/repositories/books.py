@@ -1,6 +1,7 @@
 from sqlalchemy.orm import Session, joinedload
 from sqlalchemy import func, or_
 from typing import List, Optional, Dict, Any
+from ..utils.cache import cache, invalidate_cache
 
 from .base import BaseRepository
 from ..models.books import Book
@@ -101,3 +102,45 @@ class BookRepository(BaseRepository[Book, None, None]):
             "unique_books": unique_books,
             "avg_publication_year": avg_publication_year
         }
+
+class BookRepository(BaseRepository[Book, None, None]):
+    # ...
+
+    @cache(expiry=60)  # Cache pendant 1 minute
+    def get_stats(self) -> Dict[str, Any]:
+        """
+        Récupère des statistiques sur les livres.
+        """
+        total_books = self.db.query(func.sum(Book.quantity)).scalar() or 0
+        unique_books = self.db.query(func.count(Book.id)).scalar() or 0
+        avg_publication_year = self.db.query(func.avg(Book.publication_year)).scalar() or 0
+
+        return {
+            "total_books": total_books,
+            "unique_books": unique_books,
+            "avg_publication_year": avg_publication_year
+        }
+
+    def create(self, *, obj_in: Any) -> Book:
+        """
+        Crée un nouveau livre et invalide le cache.
+        """
+        book = super().create(obj_in=obj_in)
+        invalidate_cache("src.repositories.books")
+        return book
+
+    def update(self, *, db_obj: Book, obj_in: Any) -> Book:
+        """
+        Met à jour un livre et invalide le cache.
+        """
+        book = super().update(db_obj=db_obj, obj_in=obj_in)
+        invalidate_cache("src.repositories.books")
+        return book
+
+    def remove(self, *, id: int) -> Book:
+        """
+        Supprime un livre et invalide le cache.
+        """
+        book = super().remove(id=id)
+        invalidate_cache("src.repositories.books")
+        return book
